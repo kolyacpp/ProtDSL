@@ -30,5 +30,10 @@ module SimInfra
     class Var
         def+(other); @scope.add(self, other); end
         def-(other); @scope.sub(self, other); end
+        def&(other); @scope.band(self, other); end
+        def|(other); @scope.bor(self, other); end
+        def^(other); @scope.bxor(self, other); end
+        def<<(other); @scope.shl(self, other); end
+        def>>(other); @scope.shr(self, other); end
     end
 end

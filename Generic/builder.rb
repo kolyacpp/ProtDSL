@@ -39,19 +39,14 @@ module SimInfra
     include SimInfra
         def code(&block)
             @info.code = scope = Scope.new(nil) # root scope
-            @info.args.each do |arg|
-                scope.add_var(arg.name, :i32)
-                if [:rs1, :rs2].include?(arg.name)
-                    scope.stmt(:getreg, [arg.name, arg])
-                end
-            end
+            # @info.args.each do |arg|
+            #     scope.add_var(arg.name, :i32)
+            #     if [:rs1, :rs2].include?(arg.name)
+            #         scope.stmt(:getreg, [arg.name, arg])
+            #     end
+            # end
 
             scope.instance_eval &block
-
-            dst_arg = @info.args.find { |a| a.name == :rd }
-            if dst_arg
-                scope.stmt(:setreg, [dst_arg, dst_arg.name])
-            end
         end
     end
 end
