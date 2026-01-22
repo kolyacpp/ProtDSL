@@ -182,6 +182,9 @@ struct CPU {
 
         switch (num) {
         case 93: // exit
+            if (a0 != 0) {
+                throw std::system_error(std::error_code(-static_cast<int>(a0), std::generic_category()), "Exit");
+            }
             return true;
         case 64: { // write(fd, buf, len)
             ssize_t cnt = ::write(a0, mem.data() + a1, a2);
